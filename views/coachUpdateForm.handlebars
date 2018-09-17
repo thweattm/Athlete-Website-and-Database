@@ -1,0 +1,49 @@
+<h2>Update Coach</h2>
+
+<!-- Update coach form -->
+<div id="input">
+	<b>Update any information below</b>
+	<br><br>
+	
+	<form id="updateCoachSubmit" action="/coachUpdateSubmit" method="post">
+		<input type="hidden" name="id" value="{{coach.id}}">
+		<table id="formTable">
+			<tr>
+				<td class="rightAlign">First Name:</td>
+				<td class="leftAlign"><input type="text" name="firstName" value="{{coach.firstName}}" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Last Name:</td>
+				<td class="leftAlign"><input type="text" name="lastName" value="{{coach.lastName}}" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Team:</td>
+				<td class="leftAlign">
+					<select name="teamID">
+						<option value="">None</option>
+						{{#if teams}}
+							{{#each teams}}
+								<option value="{{id}}">{{teamName}}</option>
+							{{/each}}
+						{{/if}}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Current Team:</td>
+				<td class="leftAlign">
+					{{#if coach.teamName}}
+						{{coach.teamName}}
+					{{else}}
+						None
+					{{/if}}
+				</td>
+			</tr>
+		</table>
+		<br>
+		<input type="submit" value="Update">
+		<a href="/coach">Cancel</a>
+	</form>
+</div>
+
+

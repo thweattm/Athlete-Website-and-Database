@@ -1,0 +1,73 @@
+/**********************************************
+* Name: Mike Thweatt
+* Class: CS340
+* Due Date: 12/03/17
+* Description: Webapp running a database
+***********************************************/
+ 
+th, td {
+    border-bottom: 1px solid #000;
+	text-align: center;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+div {
+	background-color: #d9d9d9;
+	width: 50%;
+	border-radius: 10px;
+	margin-top:10px;
+	padding:5px;
+}
+
+#description{
+	width: 60%;
+}
+
+#results{
+	width: 75%;
+}
+
+#newTable{
+	display: none;
+}
+
+.leftAlign{
+	text-align: left;
+	border: 0px;
+	padding: 1px;
+}
+
+.rightAlign{
+	text-align: right;
+	border: 0px;
+	padding: 1px;
+}
+
+#input{
+	background-color: #99CCFF;
+}
+
+h3{
+	margin-top:5px;
+	margin-bottom:10px;
+}
+
+#cancelButton {
+    background-color: #ccc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius:6px;
+    color: #fff;
+    font-family: 'Oswald';
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+}

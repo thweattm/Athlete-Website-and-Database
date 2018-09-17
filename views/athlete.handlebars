@@ -1,0 +1,142 @@
+<h2>Athletes</h2>
+<div id="description">
+	<a href="./">Home</a> |
+	<a href="/athlete">athlete</a> |
+	<a href="/coach">coach</a> |
+	<a href="/team">team</a> |
+	<a href="/college">college</a> |
+	<a href="/company">company</a> |
+	<a href="/endorsement">endorsement</a>
+	<br><br>
+	
+	<p><strong>Description:</strong>
+		This table contains the information about each athlete: first and last name, 
+		jersey number, team they currently play for, and college they attended.
+		<br><br>
+		
+		<strong>Constraints:</strong> The combination of first name, last name, 
+		and jersey number must be unique. An athlete can exist
+		with no team or college assignment, however, an athlete can only play for one team.
+		<br><br>
+		
+		<strong>Notes: </strong>If you delete an athlete here, any endorsements for this athlete, will also be 
+		removed from the endorsement table.	If the desired college or team value does not 
+		exist in the options, it will need to be added to the applicable page before 
+		the option is available for the athlete.
+	</p>
+</div>
+
+
+<!-- Input new athlete form -->
+<div id="input">
+	<b>Enter a new athlete into the table</b>
+	<br><br>
+	
+	<form id="addAthlete" action="/athleteInsert" method="post">
+		<table id="formTable">
+			<tr>
+				<td class="rightAlign">First Name:</td>
+				<td class="leftAlign"><input type="text" name="firstName" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Last Name:</td>
+				<td class="leftAlign"><input type="text" name="lastName" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Jersey Number:</td>
+				<td class="leftAlign"><input type="number" name="jerseyNumber"></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Team:</td>
+				<td class="leftAlign">
+					<select name="teamID">
+						<option value="">None</option>
+						{{#if teams}}
+							{{#each teams}}
+								<option value="{{id}}">{{teamName}}</option>
+							{{/each}}
+						{{/if}}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="rightAlign">College:</td>
+				<td class="leftAlign">
+					<select name="collegeID">
+						<option value="">None</option>
+						{{#if colleges}}
+							{{#each colleges}}
+								<option value="{{id}}">{{schoolName}}</option>
+							{{/each}}
+						{{/if}}
+					</select>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<input type="submit" value="Submit">
+	</form>
+</div>
+
+<!-- Table of current athletes -->
+<div id="results">
+	<strong>Current athletes:</strong><br><br>
+	<form id="selectTeamForm" action="/athlete" method="post">
+		Select a Team: 
+		<select name="teamID">
+			<option value="all">All Teams</option>
+			<option value="none">No Team</option>
+			{{#if teams}}
+				{{#each teams}}
+					<option value="{{id}}">{{teamName}}</option>
+				{{/each}}
+			{{/if}}
+		</select>
+		<input type="submit" value="Submit">
+	</form>
+	<br><br>
+						
+	{{#if athletes}}
+		<table>
+			<thead>
+				<th>Last Name</th>
+				<th>First Name</th>
+				<th>Jersey Number</th>
+				<th>Team</th>
+				<th>College</th>
+				<th></th>
+				<th></th>
+			</thead>
+			<tbody>
+				{{#each athletes}}
+				<tr>
+					<td>{{lastName}}</td>
+					<td>{{firstName}}</td>
+					<td>{{jerseyNumber}}</td>
+					<td>{{teamName}}</td>
+					<td>{{schoolName}}</td>
+					<td>
+						<form id="athleteDeleteForm" action="/athleteDelete" method="post">
+							<input type="hidden" name="id" value={{id}}>
+							<input type="submit" value="Delete">
+						</form>
+					</td>
+					<td>
+						<form id="athleteUpdateForm" action="/athleteUpdateForm" method="post">
+							<input type="hidden" name="id" value={{id}}>
+							<input type="submit" value="Update">
+						</form>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	{{else}}
+		<!--There are currently no athletes in the table-->
+		{{#if filter}}
+			No athletes found for that selection
+		{{else}}
+			No athletes found in the table
+		{{/if}}
+	{{/if}}
+</div>

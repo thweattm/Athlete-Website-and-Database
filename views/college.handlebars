@@ -1,0 +1,87 @@
+<h2>College</h2>
+<div id="description">
+	<a href="./">Home</a> |
+	<a href="/athlete">athlete</a> |
+	<a href="/coach">coach</a> |
+	<a href="/team">team</a> |
+	<a href="/college">college</a> |
+	<a href="/company">company</a> |
+	<a href="/endorsement">endorsement</a>
+	<br><br>
+	
+	<p><strong>Description:</strong> This table contains the information about each college 
+	that athletes have attended prior to their professional career: city, state, and school name.
+	<br><br>
+	
+	<strong>Constraints:</strong> The combination of city, state, and school name 
+	must be unique.
+	<br><br>
+	
+	<strong>Notes: </strong>If you delete a college here, the college will be removed 
+	from any applicable athletes.
+	</p>
+</div>
+
+
+<!-- Input new college form -->
+<div id="input">
+	<b>Enter a new college into the table</b>
+	<br><br>
+	<form id="addCollege" action="/collegeInsert" method="post">
+		<table id="formTable">
+			<tr>
+				<td class="rightAlign">City:</td>
+				<td class="leftAlign"><input type="text" name="city" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">State:</td>
+				<td class="leftAlign"><input type="text" name="state" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">College Name:</td>
+				<td class="leftAlign"><input type="text" name="schoolName" required></td>
+			</tr>
+		</table>
+		<br>
+		<input type="submit" value="Submit">
+	</form>
+</div>
+
+<!-- Table of current colleges -->
+<div id="results">
+	<strong>Current Colleges:</strong><br><br>
+	{{#if colleges}}
+		<table>
+			<thead>
+				<th>City</th>
+				<th>State</th>
+				<th>School Name</th>
+				<th></th>
+				<th></th>
+			</thead>
+			<tbody>
+				{{#each colleges}}
+				<tr>
+					<td>{{city}}</td>
+					<td>{{state}}</td>
+					<td>{{schoolName}}</td>
+					<td>
+						<form id="collegeDeleteForm" action="/collegeDelete" method="post">
+							<input type="hidden" name="id" value={{id}}>
+							<input type="submit" value="Delete">
+						</form>
+					</td>
+					<td>
+						<form id="collegeUpdateForm" action="/collegeUpdateForm" method="post">
+							<input type="hidden" name="id" value={{id}}>
+							<input type="submit" value="Update">
+						</form>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	{{else}}
+		There are currently no colleges in the table
+	{{/if}}
+</div>

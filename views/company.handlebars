@@ -1,0 +1,80 @@
+<h2>Companies</h2>
+<div id="description">
+	<a href="./">Home</a> |
+	<a href="/athlete">athlete</a> |
+	<a href="/coach">coach</a> |
+	<a href="/team">team</a> |
+	<a href="/college">college</a> |
+	<a href="/company">company</a> |
+	<a href="/endorsement">endorsement</a>
+	<br><br>
+	
+	<p><strong>Description:</strong> This table contains the information about each company 
+	that is available for athlete endorsements: company name and any applicable notes.
+	<br><br>
+	
+	<strong>Constraints:</strong> The company name must be unique.
+	<br><br>
+	
+	<strong>Notes: </strong>If you delete a company here, any endorsements with this company, 
+	will also be removed from the endorsement table.
+	</p>
+</div>
+
+<!-- Input new company form -->
+<div id="input">
+	<b>Enter a new company into the table</b>
+	<br><br>	
+	<form id="addCompany" action="/companyInsert" method="post">
+		<table id="formTable">
+			<tr>
+				<td class="rightAlign">Company Name:</td>
+				<td class="leftAlign"><input type="text" name="companyName" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Notes:</td>
+				<td class="leftAlign"><input type="text" name="notes"></td>
+			</tr>
+		</table>
+		<br>
+		<input type="submit" value="Submit">
+	</form>
+</div>
+
+<!-- Table of current companies -->
+<div id="results">
+	<strong>Current Companies:</strong><br><br>
+	{{#if companies}}
+		<table>
+			<thead>
+				<th>Company Name</th>
+				<th>Notes</th>
+				<th></th>
+				<th></th>
+			</thead>
+			<tbody>
+				{{#each companies}}
+				<tr>
+					<td>{{companyName}}</td>
+					<td>{{notes}}</td>
+					<td>
+						<form id="companyDeleteForm" action="/companyDelete" method="post">
+							<input type="hidden" name="id" value={{id}}>
+							<input type="submit" value="Delete">
+						</form>
+					</td>
+					<td>
+						<form id="companyUpdateForm" action="/companyUpdateForm" method="post">
+							<input type="hidden" name="id" value={{id}}>
+							<input type="submit" value="Update">
+						</form>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	{{else}}
+		There are currently no companies in the table
+	{{/if}}
+</div>
+

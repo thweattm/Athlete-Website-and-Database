@@ -1,0 +1,25 @@
+<h2>Update Company</h2>
+
+<!-- Update company form -->
+<div id="input">
+	<b>Update any information below</b>
+	<br><br>
+	
+	<form id="updateCompanySubmit" action="/companyUpdateSubmit" method="post">
+		<input type="hidden" name="id" value="{{company.id}}">
+		<table id="formTable">
+			<tr>
+				<td class="rightAlign">Company Name:</td>
+				<td class="leftAlign"><input type="text" name="companyName" value="{{company.companyName}}" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Notes:</td>
+				<td class="leftAlign"><input type="text" name="notes" value="{{company.notes}}"></td>
+			</tr>
+		</table>
+		<br>
+		<input type="submit" value="Update">
+		<a href="/company" class="button">Cancel</a>
+	</form>
+</div>
+

@@ -1,0 +1,98 @@
+<h2>Coaches</h2>
+<div id="description">
+	<a href="./">Home</a> |
+	<a href="/athlete">athlete</a> |
+	<a href="/coach">coach</a> |
+	<a href="/team">team</a> |
+	<a href="/college">college</a> |
+	<a href="/company">company</a> |
+	<a href="/endorsement">endorsement</a>
+	<br><br>
+	
+	<p><strong>Description: </strong>This table contains the information about each coach: 
+	first and last name, and the team they currently coach for.
+	<br><br>
+	
+	<strong>Constraints:</strong> A coach can exist
+	with no team, however, a coach can only have one team, 
+	and a team can only have one coach.
+	<br><br>
+	
+	<strong>Notes: </strong>If you delete a coach, they will be removed from their 
+	assigned team as well. If the desired team value does not exist in the options, it will need
+	to be added to the team page before the option is available for the coach.
+	</p>
+</div>
+
+<!-- Input new athlete form -->
+<div id="input">
+	<b>Enter a new coach into the table</b>
+	<br><br>	
+	<form id="addCoach" action="/coachInsert" method="post">
+		<table id="formTable">
+			<tr>
+				<td class="rightAlign">First Name:</td>
+				<td class="leftAlign"><input type="text" name="firstName" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Last Name:</td>
+				<td class="leftAlign"><input type="text" name="lastName" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Team:</td>
+				<td class="leftAlign">
+					<select name="teamID">
+						<option value="">None</option>
+						{{#if teams}}
+							{{#each teams}}
+								<option value="{{id}}">{{teamName}}</option>
+							{{/each}}
+						{{/if}}
+					</select>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<input type="submit" value="Submit">
+	</form>
+</div>
+
+<!-- Table of current coaches -->
+<div id="results">
+	<strong>Current coaches:</strong><br><br>
+	{{#if coaches}}
+		<table>
+			<thead>
+				<th>Last Name</th>
+				<th>First Name</th>
+				<th>Team</th>
+				<th></th>
+				<th></th>
+			</thead>
+			<tbody>
+				{{#each coaches}}
+				<tr>
+					<td>{{lastName}}</td>
+					<td>{{firstName}}</td>
+					<td>{{teamName}}</td>
+					<td>
+						<form id="coachDeleteForm" action="/coachDelete" method="post">
+							<input type="hidden" name="id" value={{id}}>
+							<input type="submit" value="Delete">
+						</form>
+					</td>
+					<td>
+						<form id="coachUpdateForm" action="/coachUpdateForm" method="post">
+							<input type="hidden" name="id" value={{id}}>
+							<input type="submit" value="Update">
+						</form>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	{{else}}
+		There are currently no coaches in the table
+	{{/if}}
+</div>
+

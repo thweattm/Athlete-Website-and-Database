@@ -1,0 +1,64 @@
+<h2>Update Endorsement</h2>
+
+<div id="input">
+	<b>Update any information below</b>
+	<br><br>
+	
+	<form id="updateEndorsementSubmit" action="/endorsementUpdateSubmit" method="post">
+		<input type="hidden" name="id" value="{{endorsement.id}}">
+		<table id="formTable">
+			<tr>
+				<td class="rightAlign">Athlete Name:</td>
+				<td class="leftAlign">
+					{{#if athletes}}
+						<select name="athleteID">
+						{{#each athletes}}
+							<option value="{{id}}">{{athleteName}}</option>
+						{{/each}}
+						</select>
+					{{else}}
+						No athletes available in the Athlete table.
+					{{/if}}
+				</td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Current Athlete:</td>
+				<td class="leftAlign">
+					{{#if endorsement.athleteName}}
+						{{endorsement.athleteName}}
+					{{else}}
+						None
+					{{/if}}
+				</td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Company Name:</td>
+				<td class="leftAlign">
+					{{#if companies}}
+						<select name="companyID">
+						{{#each companies}}
+							<option value="{{id}}">{{companyName}}</option>
+						{{/each}}
+						</select>
+					{{else}}
+						No companies available in the company table.
+					{{/if}}
+				</td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Current Company:</td>
+				<td class="leftAlign">
+					{{#if endorsement.companyName}}
+						{{endorsement.companyName}}
+					{{else}}
+						None
+					{{/if}}
+				</td>
+			</tr>
+		</table>
+		<br>
+		<input type="submit" value="Update">
+		<a href="/endorsement" class="button">Cancel</a>
+	</form>
+</div>
+

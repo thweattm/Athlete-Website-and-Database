@@ -1,0 +1,131 @@
+<h2>Endorsements</h2>
+<div id="description">
+	<a href="./">Home</a> |
+	<a href="/athlete">athlete</a> |
+	<a href="/coach">coach</a> |
+	<a href="/team">team</a> |
+	<a href="/college">college</a> |
+	<a href="/company">company</a> |
+	<a href="/endorsement">endorsement</a>
+	<br><br>
+	
+	<p><strong>Description:</strong> This table contains the information about each 
+	active endorsement between individual athletes and companies.
+	<br><br>
+	
+	<strong>Constraints:</strong> The combination of athlete and company must be unique.
+	<br><br>
+	
+	<strong>Notes: </strong>If you delete an endorsement here it does not affect the existence 
+	of the athlete nor the company involved in other tables.
+	</p>
+</div>
+
+<!-- Input new endorsement form -->
+<div id="input">
+	<b>Enter a new endorsement into the table</b>
+	<br><br>	
+	<form id="addEndorsement" action="/endorsementInsert" method="post">
+		<table id="formTable">
+			<tr>
+				<td class="rightAlign">Athlete:</td>
+				<td class="leftAlign">
+					{{#if athletes}}
+						<select name="athleteID">
+						{{#each athletes}}
+							<option value="{{id}}">{{athleteName}}</option>
+						{{/each}}
+						</select>
+					{{else}}
+						No athletes available in the Athlete table.
+					{{/if}}
+				</td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Company:</td>
+				<td class="leftAlign">
+					{{#if companies}}
+						<select name="companyID">
+						{{#each companies}}
+							<option value="{{id}}">{{companyName}}</option>
+						{{/each}}
+						</select>
+					{{else}}
+						No companies available in the company table.
+					{{/if}}
+				</td>
+			</tr>
+		</table>
+		<br>
+		<input type="submit" value="Submit">
+	</form>
+</div>
+
+<!-- Table of current endorsements -->
+<div id="results">
+	<strong>Current Endorsements:</strong><br><br>
+	
+	<form id="selectEndorsementForm" action="/endorsement" method="post">
+		Select an Athlete: 
+		<select name="athleteID">
+			<option value="allA">All Athletes</option>
+			{{#if athletes}}
+				{{#each athletes}}
+					<option value="{{id}}">{{athleteName}}</option>
+				{{/each}}
+			{{/if}}
+		</select>
+		<br>
+		
+		Select a Company: 
+		<select name="companyID">
+			<option value="allC">All Companies</option>
+			{{#if companies}}
+				{{#each companies}}
+					<option value="{{id}}">{{companyName}}</option>
+				{{/each}}
+			{{/if}}
+		</select>
+		<br><br>
+		<input type="submit" value="Submit">
+	</form>
+	<br><br>
+	
+	{{#if endorsements}}
+		<table>
+			<thead>
+				<th>Athlete Name</th>
+				<th>Company Name</th>
+				<th></th>
+				<th></th>
+			</thead>
+			<tbody>
+				{{#each endorsements}}
+				<tr>
+					<td>{{athleteName}}</td>
+					<td>{{companyName}}</td>
+					<td>
+						<form id="endorsementDeleteForm" action="/endorsementDelete" method="post">
+							<input type="hidden" name="id" value={{id}}>
+							<input type="submit" value="Delete">
+						</form>
+					</td>
+					<td>
+						<form id="endorsementUpdateForm" action="/endorsementUpdateForm" method="post">
+							<input type="hidden" name="id" value={{id}}>
+							<input type="submit" value="Update">
+						</form>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	{{else}}
+		{{#if filter}}
+			There are currently no endorsements for your selection
+		{{else}}
+			There are currently no endorsements in the table
+		{{/if}}
+	{{/if}}
+</div>
+
